@@ -1,0 +1,34 @@
+﻿@model VoucherWorld.Portal.Models.Manager.MvcPlaceListModel
+
+@{
+    ViewBag.Title = "PlaceList";
+}
+
+
+<div>
+    <div class="grid_4">
+        @Html.Partial("_MerchantInfo", Model.Merchant)
+    </div>
+    <div class="grid_8">
+        <div id="DashboardManagerInfo">
+
+            <ul id="NavBar">
+                <li><a href="/Manager/Dashboard">Dashboard</a></li>
+                <li><a href="/Manager/RouteList">Route List</a></li>
+                <li class="SelectedItem">Place List</li>
+            </ul>
+
+            <h2>Place List</h2>
+
+            <div class="LeftContent">
+                
+                <a id="CreateButton" href="/Manager/CreatePlace">Create new place</a>
+
+                @foreach (var placeItem in Model.PlaceList)
+                {
+                    @Html.Partial("_PlaceListItem", placeItem)
+                }
+            </div>
+        </div>
+    </div>
+</div>

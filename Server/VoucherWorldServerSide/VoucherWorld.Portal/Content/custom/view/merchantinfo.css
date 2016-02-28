@@ -1,0 +1,21 @@
+﻿#MerchantInfoContent {
+    background: #fff;
+    border: 1px solid #FFBC35;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+#MerchantInfo h2 {
+    color: #fff;
+    background-color: #FFBC35;
+    padding: 20px 20px;
+    margin-bottom: -0.1em;
+}
+
+.MerchantInfoTitle {
+    padding-left: 15px;
+}
+
+.MerchantInfoValue {
+    padding-left: 50px;
+}

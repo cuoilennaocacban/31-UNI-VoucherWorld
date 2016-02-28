@@ -1,0 +1,43 @@
+﻿.ClientBox {
+	margin: 0px auto;
+	width: 300px;
+}
+
+.ClientBox h2 {
+	background-color: #FFBC35;
+	color: #fff;
+	font-size: 28px;
+	padding: 15px 15px;
+	margin-bottom: 0px;
+}
+
+.ClientBox fieldset {
+	background-color: #fff;
+	padding: 20px 25px;
+}
+
+.ClientBox fieldset input[type="text"] {
+	background-color: #eee;
+	color: #777;
+	padding: 4px 10px;
+    margin: 0px auto;
+	width: 250px;
+	word-wrap: break-word;
+}
+
+.ClientBox fieldset input[type="submit"] {
+	background-color: #FFBC35;
+	color: #fff;
+	display: block;
+	margin: 0 auto;
+	padding: 4px 0;
+	width: 100px;
+}
+
+.ClientBox fieldset input[type="submit"]:hover {
+	background-color: #1693A5;
+}
+
+.ClientBox fieldset p:last-child {
+	margin-bottom: 0;
+}

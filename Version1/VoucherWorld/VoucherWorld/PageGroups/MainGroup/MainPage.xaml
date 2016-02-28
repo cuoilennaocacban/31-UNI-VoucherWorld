@@ -1,0 +1,347 @@
+﻿<phone:PhoneApplicationPage x:Class="VoucherWorld.MainPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:controls="clr-namespace:Coding4Fun.Toolkit.Controls;assembly=Coding4Fun.Toolkit.Controls"
+                            xmlns:customControl="clr-namespace:VoucherWorld.CustomControl"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            SupportedOrientations="Portrait"
+                            shell:SystemTray.IsVisible="True"
+                            mc:Ignorable="d">
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="DataTemplateCategory">
+            <Grid x:Name="CategoryGrid"
+                  Width="180"
+                  Height="180"
+                  Tag="{Binding}"
+                  Tap="CategoryGrid_OnTap"
+                  toolkit:TiltEffect.IsTiltEnabled="True">
+                <Grid.Background>
+                    <SolidColorBrush Opacity="0.7" Color="{StaticResource AccentBrushAlter}" />
+                </Grid.Background>
+                <TextBlock Margin="20,0,0,10"
+                           VerticalAlignment="Bottom"
+                           FontSize="20"
+                           Foreground="{StaticResource PhoneContrastBackgroundBrush}"
+                           Text="{Binding Name}" />
+                <Path Width="110"
+                      Height="110"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="{Binding Path}"
+                      Fill="{StaticResource PhoneContrastBackgroundBrush}"
+                      Stretch="UniformToFill" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateHistoryListbox">
+            <Grid x:Name="HistoryGrid" Tap="HistoryGrid_OnTap">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1"
+                        Margin="-20,0,0,0"
+                        BorderBrush="{StaticResource PhoneBackgroundBrush}"
+                        BorderThickness="0,2,2,2">
+                    <Border.Background>
+                        <SolidColorBrush Opacity="0.3" Color="{StaticResource MyBlueBrushAlter}" />
+                    </Border.Background>
+                    <StackPanel Margin="25,0" VerticalAlignment="Center">
+                        <TextBlock FontWeight="Bold"
+                                   Foreground="{StaticResource PhoneContrastBackgroundBrush}"
+                                   Text="{Binding Name}" />
+                        <TextBlock Foreground="{StaticResource PhoneDisabledBrush}"
+                                   Text="{Binding Places[0].Address}"
+                                   TextTrimming="WordEllipsis" />
+                        <TextBlock Foreground="{StaticResource PhoneDisabledBrush}"
+                                   Text="{Binding Places[0].Address}"
+                                   TextTrimming="WordEllipsis" />
+                    </StackPanel>
+                </Border>
+
+                <Grid Grid.Column="0">
+                    <Ellipse Width="40"
+                             Height="40"
+                             Fill="{StaticResource MyBlueBrush}"
+                             Stroke="{StaticResource PhoneBackgroundBrush}"
+                             StrokeThickness="2" />
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource MyOrangeBrush}"
+                               Text="{Binding Id}" />
+                </Grid>
+
+            </Grid>
+        </DataTemplate>
+
+        <RotateTransform x:Key="CenterButtonTransform" Angle="45" CenterX="40" CenterY="40" />
+
+        <SolidColorBrush x:Key="GrayBackground" Color="Gray" />
+        <SolidColorBrush x:Key="CameraBackground" Color="#E29F0E" />
+        <SolidColorBrush x:Key="MusicBackground" Color="#83951C" />
+        <SolidColorBrush x:Key="PeopleBackground" Color="#F36E2B" />
+        <SolidColorBrush x:Key="PlaceBackground" Color="#2659C7" />
+        <SolidColorBrush x:Key="HeartBackground" Color="#C63233" />
+        <SolidColorBrush x:Key="ChatBackground" Color="#912993" />
+        <Storyboard x:Name="StoryboardOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="-160" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.7" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="-240.879" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="-240.879" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.7" Value="-160" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon2" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="0" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.9" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon2" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="-244.082" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="-244.082" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.9" Value="-160" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="-137.734" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="-137.734" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.7" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon2" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="136.133" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="136.133" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.9" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="StoryboardClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="-160" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="-160" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="-240.879" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon2" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon2" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="-160" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="-244.082" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="-137.734" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="roundButon2" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="136.133" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </phone:PhoneApplicationPage.Resources>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="applicationBar"
+                              BackgroundColor="{StaticResource PhoneBackgroundColor}"
+                              IsMenuEnabled="True"
+                              IsVisible="True"
+                              Mode="Default"
+                              Opacity="0.7"
+                              x:FieldModifier="public">
+            <shell:ApplicationBarIconButton Click="MagicalLens_OnClick"
+                                            IconUri="/Assets/Icon/eye.png"
+                                            Text="magical lens" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="UserInfogMenuBarItem"
+                                              Click="UserInfogMenuBarItem_OnClick"
+                                              Text="user info..." />
+                <shell:ApplicationBarMenuItem x:Name="HistoryMenuBarItem"
+                                              Click="HistoryBarMenuItem_OnClick"
+                                              Text="history..." />
+                <shell:ApplicationBarMenuItem x:Name="SettingMenuBarItem"
+                                              Click="SettingMenuBarItem_OnClick"
+                                              Text="setting..." />
+                <shell:ApplicationBarMenuItem x:Name="AboutMenuBarItem"
+                                              Click="AboutMenuBarItem_OnClick"
+                                              Text="about.." />
+                <shell:ApplicationBarMenuItem x:Name="RateAndReviewMenuBarItem"
+                                              Click="RateAndReviewMenuBarItem_OnClick"
+                                              Text="rate, review and feedback..." />
+            </shell:ApplicationBar.MenuItems>
+            <!--
+                <shell:ApplicationBarIconButton x:Name="PlaylistButton"
+                Click="PlaylistButton_OnClick"
+                IconUri="/Assets/Icon/play.png"
+                IsEnabled="True"
+                Text="start"
+                x:FieldModifier="public" />
+            -->
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <!--  LayoutRoot is the root grid where all page content is placed  -->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <ContentPresenter ContentTemplate="{StaticResource AppBackgroundTemplate}" />
+
+        <!--
+            LOCALIZATION NOTE:
+            To localize the displayed strings copy their values to appropriately named
+            keys in the app's neutral language resource file (AppResources.resx) then
+            replace the hard-coded text value between the attributes' quotation marks
+            with the binding clause whose path points to that string name.
+            
+            For example:
+            
+            Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+            
+            This binding points to the template's string resource named "ApplicationTitle".
+            
+            Adding supported languages in the Project Properties tab will create a
+            new resx file per language that can carry the translated values of your
+            UI strings. The binding in these examples will cause the value of the
+            attributes to be drawn from the .resx file that matches the
+            CurrentUICulture of the app at run time.
+        -->
+
+        <!--  ContentPanel - place additional content here  -->
+        <Grid x:Name="ContentPanel">
+
+            <phone:Pivot Title="VOUCHER WORLD">
+                <phone:PivotItem x:Name="MainPivot"
+                                 CacheMode="{x:Null}"
+                                 Header="category">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <ListBox x:Name="CategoryListBox"
+                                 Grid.Row="0"
+                                 ItemTemplate="{StaticResource DataTemplateCategory}"
+                                 Visibility="Collapsed">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <toolkit:WrapPanel ItemHeight="200" ItemWidth="200" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                        </ListBox>
+
+                        <Grid Grid.Row="1"
+                              Width="410"
+                              Height="410">
+
+
+
+                            <customControl:RoundButon x:Name="roundButon"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      BorderBackground="{StaticResource HeartBackground}"
+                                                      BothSize="80"
+                                                      ContentData="M3.0066905,8.6380036C16.363398,13.427042 13.233119,18.908087 13.233119,18.908087 13.05152,19.22609 13.11462,19.699093 13.373818,19.958096L32.792884,39.376251C34.852868,44.243294 31.001296,42.074276 31.001296,42.074276 30.682199,41.894272 30.208301,41.535271 29.949103,41.276268L10.622438,21.947111C3.3347883,23.699126 0.032711029,12.436034 0.032711029,12.436034 -0.070088387,12.084031 0.07761097,11.986031 0.36080933,12.219033L7.082062,17.723078C7.3652602,17.955078,7.4212598,17.902079,7.2058613,17.606076L2.0378976,10.500018C1.8223987,10.203017,1.8815985,10.146015,2.1699967,10.372017L8.8744499,15.65106C9.1628477,15.878063,9.2026474,15.836062,8.9636491,15.55806z M11.483635,0L41.825421,30.343672C41.825421,30.343672,44.460866,34.262764,39.404973,32.764714L22.535513,15.893348 18.583792,15.891364 8.8899875,5.7951386C8.8899873,5.7951386,6.3536388,0.59303035,11.483635,0z"
+                                                      ContentSize="30"
+                                                      Opacity="0"
+                                                      RenderTransformOrigin="0.5,2.5"
+                                                      Tag="0"
+                                                      Tap="RoundButon_OnTap">
+                                <customControl:RoundButon.RenderTransform>
+                                    <CompositeTransform TranslateY="-160" />
+                                </customControl:RoundButon.RenderTransform>
+                            </customControl:RoundButon>
+                            <customControl:RoundButon x:Name="roundButon1"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      BorderBackground="{StaticResource MusicBackground}"
+                                                      BothSize="80"
+                                                      ContentData="M18.698001,56.938L18.698001,59.728001 31.349,59.728001 31.349,56.938z M1.8610001,56.938L1.8610001,59.727997 11.535001,59.727997 11.535001,56.938z M59.898386,55.058998L45.885002,57.419712 46.34852,60.171997 60.362001,57.811481z M52.786489,12.724999L38.773001,15.086076 39.236515,17.838997 53.250002,15.477921z M1.8610001,10.271L1.8610001,13.061001 11.535001,13.061001 11.535001,10.271z M54.079065,9.757L62.307001,61.243523 45.055634,64 36.829,12.513545z M0,5.21L13.394,5.21 13.394,64 0,64z M18.698001,4.9379997L18.698001,7.7279997 31.349,7.7279997 31.349,4.9379997z M17.023001,0L33.023001,0 33.023001,64 17.023001,64z"
+                                                      ContentSize="30"
+                                                      InnerRotation="-120"
+                                                      Opacity="0"
+                                                      RenderTransformOrigin="0.5,2.5"
+                                                      Tag="2"
+                                                      Tap="RoundButon_OnTap">
+                                <customControl:RoundButon.RenderTransform>
+                                    <CompositeTransform Rotation="120" TranslateY="-160" />
+                                </customControl:RoundButon.RenderTransform>
+                            </customControl:RoundButon>
+                            <customControl:RoundButon x:Name="roundButon2"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      BorderBackground="{StaticResource PlaceBackground}"
+                                                      BothSize="80"
+                                                      ContentData="M18.892,28.973L32.050998,28.973 32.050998,40.592955C32.050998,41.73628,31.121292,42.666,29.976783,42.666L18.892,42.666z M1.7299999,28.973L14.916999,28.973 14.916999,42.666 3.8017106,42.666C2.6545537,42.666,1.7299996,41.73628,1.7299999,40.592955z M7.5128932,4.2779469C7.4715247,4.2752433 7.4441204,4.2853484 7.4319778,4.3093352 7.1454706,4.8848295 8.2405973,6.6713705 10.715848,8.2259243 12.779798,9.520231 15.532365,11.468111 16.437387,11.762407 16.443887,11.608709 16.439987,11.461711 16.454288,11.305412 14.96871,9.683306 8.3540521,4.3329072 7.5128932,4.2779469z M26.297348,4.2779293C25.459734,4.3326626 18.847366,9.6806667 17.35931,11.304013 17.371009,11.460411 17.36841,11.608709 17.37491,11.762407 18.282432,11.468111 21.033899,9.520231 23.09505,8.2259243 25.56921,6.6713705 26.665437,4.8848295 26.377731,4.3093352 26.365768,4.2853484 26.338541,4.2752376 26.297348,4.2779293z M9.8317151,0.00037097931C12.030257,-0.030833244 13.449033,1.9170647 13.999828,2.4669447 14.52594,2.9954491 16.096279,5.952508 16.906198,8.9030375 17.714719,5.952508 19.285158,2.9954491 19.81377,2.4669447 20.562488,1.7181721 22.920646,-1.6228523 26.666837,0.97080994 30.410429,3.5593433 30.294527,5.693481 30.237224,6.9577479 29.619522,9.9305356 25.945417,11.272204 22.535034,11.885845L22.381429,11.912001 31.185825,11.912001C32.332912,11.912001,33.260002,12.840487,33.260002,13.983824L33.260002,17.526868C33.260002,18.360195,32.760005,19.06974,32.050415,19.400557L32.050415,26.26 18.891672,26.26 18.891672,12.371788 18.059944,12.371788 18.032266,12.373175C17.800603,12.384314 17.588178,12.392688 17.398311,12.399201 17.317609,12.425101 17.134004,12.421301 16.906198,12.414701 16.679594,12.421301 16.494689,12.425101 16.415187,12.429001 16.130395,12.416438 15.794848,12.399949 15.419748,12.37646L15.34752,12.371788 14.916522,12.371788 14.916522,26.26 1.7304493,26.26 1.7304493,19.530689C0.75517847,19.361496,-4.5850035E-07,18.548919,1.9895197E-13,17.526868L1.9895197E-13,13.983824C-4.5850035E-07,12.840487,0.92967637,11.912001,2.075475,11.912001L11.387846,11.912001 11.278409,11.893121C7.8678274,11.272204 4.193121,9.9305356 3.573793,6.9577479 3.5191019,5.693481 3.4045391,3.5593433 7.1441908,0.97080994 8.1392646,0.28186798 9.0364976,0.011658669 9.8317151,0.00037097931z"
+                                                      ContentSize="30"
+                                                      InnerRotation="-240"
+                                                      Opacity="0"
+                                                      RenderTransformOrigin="0.5,2.5"
+                                                      Tag="1"
+                                                      Tap="RoundButon_OnTap">
+                                <customControl:RoundButon.RenderTransform>
+                                    <CompositeTransform Rotation="240" TranslateY="-160" />
+                                </customControl:RoundButon.RenderTransform>
+                            </customControl:RoundButon>
+
+                            <customControl:BigRoundButton HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          BothSize="100"
+                                                          ContentData="M19.833,0L32.5,0 32.5,19.833999 52.334,19.833999 52.334,32.500999 32.5,32.500999 32.5,52.333 19.833,52.333 19.833,32.500999 0,32.500999 0,19.833999 19.833,19.833999z"
+                                                          ContentSize="40"
+                                                          Tap="BigRoundButton_Tap" />
+
+                        </Grid>
+
+                    </Grid>
+                </phone:PivotItem>
+                <!--
+                    <phone:PivotItem CacheMode="{x:Null}" Header="history">
+                    <Grid Margin="12">
+                    <ListBox x:Name="HistoryListBox" ItemTemplate="{StaticResource DataTemplateHistoryListbox}" />
+                    </Grid>
+                    </phone:PivotItem>
+                -->
+            </phone:Pivot>
+
+        </Grid>
+
+        <!--
+            Uncomment to see an alignment grid to help ensure your controls are
+            aligned on common boundaries.  The image has a top margin of -32px to
+            account for the System Tray. Set this to 0 (or remove the margin altogether)
+            if the System Tray is hidden.
+            
+            Before shipping remove this XAML and the image itself.
+        -->
+        <!--  <Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />  -->
+    </Grid>
+
+</phone:PhoneApplicationPage>

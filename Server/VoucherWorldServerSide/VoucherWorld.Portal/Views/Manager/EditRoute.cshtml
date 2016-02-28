@@ -1,0 +1,50 @@
+﻿@using Repository.Pattern.Ef6
+@using VoucherWorld.Data
+@using VoucherWorld.Data.Entities
+@using VoucherWorld.Portal.Utilities
+@model VoucherWorld.Portal.Models.Manager.MvcRouteModel
+
+@{
+    ViewBag.Title = "EditRoute";
+}
+
+@{
+    var editLink = "/Manager/EditRoute/" + Model.Id;
+}
+
+<div class="EditBox">
+    <h2>Edit route</h2>
+    <form action="@editLink" method="post">
+        <fieldset>
+            @Html.HiddenFor(x => x.Id)
+            <p>@Html.LabelFor(r => r.Name)</p>
+            <p>@Html.EditorFor(r => r.Name)</p>
+                
+            <p>@Html.CheckBoxFor(x => x.IsHidden)
+            @Html.LabelFor(x => x.IsHidden)
+            <label for="Category" id="CategoryLabel">Category</label>
+            @Html.EnumDropDownListFor(x => x.Category)</p>
+            <p>@Html.LabelFor(x => x.OpenEndedQuestion.Content)</p>
+            <p>@Html.EditorFor(x => x.OpenEndedQuestion.Content)</p>
+
+            <p>@Html.LabelFor(x => x.Gift.GiftName)</p>
+            <p>@Html.EditorFor(x => x.Gift.GiftName)</p>
+
+            <p>@Html.LabelFor(x => x.Gift.StockAmount)</p>
+            <p>@Html.EditorFor(x => x.Gift.StockAmount)</p>
+            <div class="PlaceChoose">
+            <p><label for="PlaceIds_0_">Place #1</label></p>
+            <p>@Html.DropDownListFor(x => x.PlaceIds[0], new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[0]))</p>
+            <p><label for="PlaceIds_1_">Place #2</label></p>
+            <p>@Html.DropDownListFor(x => x.PlaceIds[1], new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[1]))</p>
+            <p><label for="PlaceIds_2_">Place #3</label></p>
+            <p>@Html.DropDownListFor(x => x.PlaceIds[2], new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[2]))</p>
+            </div>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+
+        </fieldset>
+    </form>
+</div>
+

@@ -1,0 +1,34 @@
+﻿@model VoucherWorld.Portal.Models.Manager.DashboardModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+<div class="Dashboard">
+    <div class="grid_4">
+        @Html.Partial("_MerchantInfo", Model.Merchant)
+    </div>
+    <div class="grid_8">
+        <div id="DashboardManagerInfo">
+
+            <ul id="NavBar">
+                <li class="SelectedItem">Dashboard</li>
+                <li><a href="/Manager/RouteList">Route List</a></li>
+                <li><a href="/Manager/PlaceList">Place List</a></li>
+            </ul>
+            <h2>Hi, @Model.Name</h2>
+
+            <div id="DashboardManagerInfoContent" class="LeftContent">
+                <h3 class="DashboardManagerInfoTitle">Address</h3>
+                <p class="DashboardManagerInfoValue">@Model.Address</p>
+
+                <h3 class="DashboardManagerInfoTitle">Phone number</h3>
+                <p class="DashboardManagerInfoValue">@Model.PhoneNumber</p>
+
+                <h3 class="DashboardManagerInfoTitle">Email</h3>
+                <p class="DashboardManagerInfoValue">@Model.Email</p>
+            </div>
+        </div>
+    </div>
+</div>

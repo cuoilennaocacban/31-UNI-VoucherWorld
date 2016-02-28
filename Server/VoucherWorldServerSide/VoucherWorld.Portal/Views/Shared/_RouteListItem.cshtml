@@ -1,0 +1,63 @@
+﻿@model VoucherWorld.Data.Entities.Route
+
+
+<div class="RouteListItem">
+    <h3>@Model.Name</h3>
+    <div class="RouteListItemContentTable">
+        <table>
+            <tr>
+                <td class="RouteListItemPropertyTitle"><i class="fa fa-bookmark"></i></td>
+                <td class="RouteListItemPropertyValue">@Model.Category</td>
+                <td class="RouteListItemPropertyTitle"><i class="fa fa-eye"></i></td>
+                @if (Model.IsHidden)
+                {
+                    <td class="RouteListItemPropertyValue">Hidden</td>
+                }
+                else
+                {
+                    <td class="RouteListItemPropertyValue">Normal</td>
+                }
+
+                @{
+                    string editLink = "/Manager/EditRoute/" + Model.Id;
+                    string deleteLink = "/Manager/DeleteRoute/" + Model.Id;
+                    string answerLink = "/Manager/RouteAnswer/" + Model.Id;
+                }
+
+                <td rowspan="3">
+                    <table>
+                        <tr>
+                            <td><a class="EditButton" href="@editLink">Edit</a></td>
+                            <td><a class="DeleteButton" href="@deleteLink">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a class="Answer" href="@answerLink">View answer</a>
+                            </td>
+                        </tr>
+                    </table>
+                    @*<a class="EditButton" href="@editLink">Edit</a>
+                    <a class="DeleteButton" href="@deleteLink">Delete</a>*@
+                </td>
+            </tr>
+
+            <tr>
+                <td class="RouteListItemPropertyTitle"><i class="fa fa-map-marker"></i></td>
+                <td class="RouteListItemPropertyValue">@Model.RoutePlaces.Count</td>
+                <td class="RouteListItemPropertyTitle"><i class="fa fa-users"></i></td>
+                <td class="RouteListItemPropertyValue">@Model.Enrollments.Count</td>
+            </tr>
+
+            <tr>
+                <td class="RouteListItemPropertyTitle"><i class="fa fa-gift"></i></td>
+                <td class="RouteListItemPropertyValue">@Model.Gift.GiftName</td>
+                <td class="RouteListItemPropertyTitle">@Model.Gift.StockAmount</td>
+                <td class="RouteListItemPropertyValue">in stock</td>
+            </tr>
+            <tr>
+                <td class="RouteListItemPropertyTitle"><i class="fa fa-question"></i></td>
+                <td id="RouteListItemPropertyQuestionContent" colspan="3">@Model.OpenEndedQuestion.Content</td>
+            </tr>
+        </table>
+    </div>
+</div>

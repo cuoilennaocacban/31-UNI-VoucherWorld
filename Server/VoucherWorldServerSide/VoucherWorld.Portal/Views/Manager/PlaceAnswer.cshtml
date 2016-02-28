@@ -1,0 +1,40 @@
+﻿@model VoucherWorld.Portal.Models.Manager.MvcScalingAnswerModel
+@{
+    ViewBag.Title = "PlaceAnswer";
+}
+
+
+<div class="EditBox" id="AnswerResult">
+    <h2>Answers</h2>
+    
+    <fieldset>
+        <p>
+            <h3>Question</h3>
+        </p>
+        <p class="DeleteConfirmValue">@Model.Question</p>
+
+        <table class="ScalingTable">
+            <tr>
+                <th class="TableValueType">Answer</th>
+                @foreach(var value in Model.AnswerValues)
+                {
+                    <th class="TableColumn">@value</th>
+                }
+            </tr>
+            <tr>
+                <th class="TableValueType">Count</th>
+                @foreach (var count in Model.AnswerCount)
+                {
+                    <td class="TableColumn">@count</td>
+                }
+            </tr>
+            <tr>
+                <th class="TableValueType">Percentage</th>
+                @foreach (var percent in Model.AnswerPercentage)
+                {
+                    <td class="TableColumn">@percent</td>
+                }
+            </tr>
+        </table>
+    </fieldset>
+</div>

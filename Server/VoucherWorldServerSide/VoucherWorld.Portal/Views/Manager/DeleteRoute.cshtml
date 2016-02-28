@@ -1,0 +1,53 @@
+﻿@model VoucherWorld.Data.Entities.Route
+
+@{
+    ViewBag.Title = "DeleteRoute";
+}
+
+@{
+    var deleteLink = "/Manager/DeleteRoute/" + Model.Id;
+}
+
+<div class="EditBox">
+    <h2>Delete place</h2>
+    <form action="@deleteLink" method="post">
+        <fieldset>
+            <h3>Name</h3>
+            <p class="DeleteConfirmValue">@Model.Name</p>
+            
+            <h3>Category</h3>
+            <p class="DeleteConfirmValue">@Model.Category</p>
+            
+            <h3>Gift</h3>
+            <p class="DeleteConfirmValue">@Model.Gift.GiftName</p>
+            
+            <h3>Question</h3>
+            <p class="DeleteConfirmValue">@Model.OpenEndedQuestion.Content</p>
+            
+            <h3>Place #1</h3>
+            <p class="DeleteConfirmValue">@Model.RoutePlaces.ToList()[0].Place.Name</p>
+            
+            <h3>Place #2</h3>
+            <p class="DeleteConfirmValue">@Model.RoutePlaces.ToList()[1].Place.Name</p>
+            
+            <h3>Place #3</h3>
+            <p class="DeleteConfirmValue">@Model.RoutePlaces.ToList()[2].Place.Name</p>
+
+            <p>
+                <input type="submit" value="Delete" class="DeleteConfirmButton"/>
+            </p>
+
+        </fieldset>
+    </form>
+</div>
+
+@*<h2>DeleteRoute</h2>
+
+<h3>Do you really want to delete route @Model.Name</h3>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" />
+    </p>
+}*@

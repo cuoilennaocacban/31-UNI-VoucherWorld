@@ -1,0 +1,44 @@
+﻿@model VoucherWorld.Data.Entities.Place
+
+@{
+    ViewBag.Title = "DeletePlace";
+}
+
+@{
+    var deleteLink = "/Manager/CreatePlace/" + Model.Id;
+}
+
+<div class="EditBox">
+    <h2>Delete place</h2>
+    <form action="@deleteLink" method="post">
+        <fieldset>
+            <h3>Address</h3>
+            <p class="DeleteConfirmValue">@Model.Address</p>
+            
+            <h3>Question</h3>
+            <p class="DeleteConfirmValue">@Model.ScalingQuestion.Content</p>
+            
+            <h3>Longitude</h3>
+            <p class="DeleteConfirmValue">@Model.Longitude</p>
+            
+            <h3>Latitude</h3>
+            <p class="DeleteConfirmValue">@Model.Latitude</p>
+
+            <p>
+                <input type="submit" value="Delete"  class="DeleteConfirmButton"/>
+            </p>
+
+        </fieldset>
+    </form>
+</div>
+
+@*<h2>DeletePlace</h2>
+
+<h3>Do you really want to delete place at @Model.Address</h3>
+<h4>With the question @Model.ScalingQuestion.Content</h4>
+@using (Html.BeginForm()) 
+{
+    <p>
+        <input type="submit" value="Delete" />
+    </p>
+}*@

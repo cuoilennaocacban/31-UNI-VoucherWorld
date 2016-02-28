@@ -1,0 +1,56 @@
+﻿.RouteListItem {
+    margin: 20px 50px;
+}
+
+.RouteListItemPropertyTitle {
+    width: 48px;
+    text-align: center;
+}
+
+.RouteListItemPropertyValue {
+    width: 180px;
+}
+
+.RouteListItemContentTable table {
+    padding: 10px 20px;
+}
+
+.RouteListItemContentTable .EditButton {
+    padding: 3px 10px;
+    background-color: #FFBC35;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.RouteListItemContentTable .Answer {
+    padding: 3px 15px;
+    background-color: #FFBC35;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.RouteListItemContentTable .DeleteButton {
+    padding: 3px 10px;
+    background-color: #f95252;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.RouteListItemContentTable table tr td {
+    vertical-align: baseline;
+}
+
+#RouteListItemPropertyQuestionContent {
+    width: 408px;
+}
+
+.RouteListItemContentTable table tr td span {
+    font-family: fontawesome;
+}

@@ -1,0 +1,199 @@
+﻿#DashboardManagerInfo h2 {
+    color: #fff;
+    background-color: #FFBC35;
+    padding: 20px 20px;
+    margin-bottom: -0.1em;
+}
+
+.LeftContent {
+    background: #fff;
+    border: 1px solid #FFBC35;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+    .LeftContent #CreateButton {
+        padding: 3px 20px;
+        margin-left: 30px;
+        margin-top: 20px;
+        background-color: #1693A5;
+        color: #fff;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+.DashboardManagerInfoTitle {
+    padding-left: 15px;
+}
+
+.DashboardManagerInfoValue {
+    padding-left: 50px;
+}
+
+#NavBar {
+    text-align: left;
+    display: inline;
+    margin: 0;
+    padding: 15px 4px 17px 0;
+    list-style: none;
+    margin-top: -67px;
+    float: right;
+}
+
+
+    #NavBar li {
+        display: inline-block;
+        margin-right: -4px;
+        position: relative;
+        background: #fff;
+        cursor: pointer;
+    }
+
+        #NavBar li a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #FFBC35;
+        }
+
+        #NavBar li:hover {
+            background: #FFBC35;
+        }
+
+            #NavBar li:hover a {
+                color: #fff;
+            }
+
+.SelectedItem {
+    background-color: #FFBC35 !important;
+    padding: 15px 20px;
+    color: #fff;
+}
+
+.EditBox {
+    margin: 0px auto;
+    width: 600px;
+}
+
+    .EditBox h2 {
+        background-color: #FFBC35;
+        color: #fff;
+        font-size: 28px;
+        padding: 20px 26px;
+        margin-bottom: 0px;
+    }
+
+    .EditBox fieldset {
+        background-color: #fff;
+        padding: 20px 26px;
+    }
+
+        .EditBox fieldset #CategoryLabel {
+            margin-left: 80px;
+            margin-right: 10px;
+        }
+
+        .EditBox fieldset select {
+            background-color: #eee;
+            color: #777;
+            border: none;
+        }
+
+.PlaceChoose {
+    margin-bottom: 14px;
+}
+
+    .PlaceChoose select {
+        width: 550px;
+    }
+
+.EditBox fieldset input[type="checkbox"] {
+    color: #777;
+    padding: 4px 10px;
+    word-wrap: break-word;
+}
+
+.EditBox fieldset input[type="text"], .EditBox fieldset input[type="number"] {
+    background-color: #eee;
+    color: #777;
+    padding: 4px 10px;
+    width: 550px;
+    word-wrap: break-word;
+}
+
+
+
+.EditBox fieldset p {
+    color: #777;
+    margin-bottom: 14px;
+}
+
+    .EditBox fieldset p:last-child {
+        margin-bottom: 0;
+    }
+
+.EditBox fieldset input[type="submit"] {
+    background-color: #FFBC35;
+    color: #fff;
+    display: block;
+    margin: 0 auto;
+    padding: 4px 0;
+    width: 100px;
+}
+
+.EditBox fieldset .DeleteConfirmButton {
+    background-color: #f95252 !important;
+    color: #fff;
+    display: block;
+    margin: 0 auto;
+    padding: 4px 0;
+    width: 100px;
+}
+
+.EditBox fieldset input[type="submit"]:hover {
+    background-color: #1693A5;
+}
+
+.DeleteConfirmValue {
+    margin-left: 30px;
+}
+
+#AnswerResult h2 {
+    background-color: #FFBC35;
+    color: #fff;
+    font-size: 28px;
+    padding: 20px 26px;
+    margin-bottom: 0px;
+}
+
+.ScalingTable {
+    width: 400px;
+    margin: auto;
+}
+
+    #AnswerResult table th {
+        font-weight: bold;
+    }
+
+.ScalingTable .TableValueType {
+    width: 20%;
+}
+
+.ScalingTable .TableColumn {
+    width: 16%;
+    text-align: center;
+}
+
+.OpenEndedTable {
+    width: 550px;
+    margin: auto;
+}
+
+.OpenEndedTable .FirstColumn {
+    width: 25%;
+    text-align: center;
+}
+
+.OpenEndedTable .SecondColumn {
+    width: 75%;
+}

@@ -1,0 +1,95 @@
+﻿<phone:PhoneApplicationPage x:Class="VoucherWorld.PageGroups.QuestionGroup.GiftCodePage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            SupportedOrientations="Portrait"
+                            shell:SystemTray.IsVisible="True"
+                            mc:Ignorable="d">
+
+    <!--  LayoutRoot is the root grid where all page content is placed  -->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ContentPresenter Grid.RowSpan="2" ContentTemplate="{StaticResource AppBackgroundTemplate}" />
+
+        <!--  TitlePanel contains the name of the application and page title  -->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="VOUCHER WORLD" />
+            <TextBlock Margin="9,-7,0,0"
+                       Style="{StaticResource PhoneTextTitle1Style}"
+                       Text="gift code" />
+        </StackPanel>
+
+        <!--  ContentPanel - place additional content here  -->
+        <Grid x:Name="ContentPanel"
+              Grid.Row="1"
+              Margin="12,0,12,0">
+
+            <TextBlock Text="Show this code to your mechant to receive your gift" TextWrapping="Wrap" />
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Path x:Name="gift"
+                      Width="240"
+                      Height="240"
+                      Margin="0,0,0,0"
+                      Data="M18.892,28.973 L32.051,28.973 L32.051,40.593 C32.051,41.7363 31.1213,42.666 29.9768,42.666 L18.892,42.666 z M1.73,28.973 L14.917,28.973 L14.917,42.666 L3.80171,42.666 C2.65455,42.666 1.73,41.7363 1.73,40.593 z M7.51289,4.27795 C7.47152,4.27524 7.44412,4.28535 7.43198,4.30934 C7.14547,4.88483 8.2406,6.67137 10.7158,8.22592 C12.7798,9.52023 15.5324,11.4681 16.4374,11.7624 C16.4439,11.6087 16.44,11.4617 16.4543,11.3054 C14.9687,9.68331 8.35405,4.33291 7.51289,4.27795 z M26.2973,4.27793 C25.4597,4.33266 18.8474,9.68067 17.3593,11.304 C17.371,11.4604 17.3684,11.6087 17.3749,11.7624 C18.2824,11.4681 21.0339,9.52023 23.0951,8.22592 C25.5692,6.67137 26.6654,4.88483 26.3777,4.30934 C26.3658,4.28535 26.3385,4.27524 26.2973,4.27793 z M9.83171,0.000371 C12.0303,-0.030833 13.449,1.91706 13.9998,2.46694 C14.5259,2.99545 16.0963,5.95251 16.9062,8.90304 C17.7147,5.95251 19.2852,2.99545 19.8138,2.46694 C20.5625,1.71817 22.9206,-1.62285 26.6668,0.97081 C30.4104,3.55934 30.2945,5.69348 30.2372,6.95775 C29.6195,9.93054 25.9454,11.2722 22.535,11.8858 L22.3814,11.912 L31.1858,11.912 C32.3329,11.912 33.26,12.8405 33.26,13.9838 L33.26,17.5269 C33.26,18.3602 32.76,19.0697 32.0504,19.4006 L32.0504,26.26 L18.8917,26.26 L18.8917,12.3718 L18.0599,12.3718 L18.0323,12.3732 C17.8006,12.3843 17.5882,12.3927 17.3983,12.3992 C17.3176,12.4251 17.134,12.4213 16.9062,12.4147 C16.6796,12.4213 16.4947,12.4251 16.4152,12.429 C16.1304,12.4164 15.7948,12.3999 15.4197,12.3765 L15.3475,12.3718 L14.9165,12.3718 L14.9165,26.26 L1.73045,26.26 L1.73045,19.5307 C0.755178,19.3615 0,18.5489 0,17.5269 L0,13.9838 C0,12.8405 0.929676,11.912 2.07547,11.912 L11.3878,11.912 L11.2784,11.8931 C7.86783,11.2722 4.19312,9.93054 3.57379,6.95775 C3.5191,5.69348 3.40454,3.55934 7.14419,0.97081 C8.13927,0.281868 9.0365,0.011659 9.83171,0.000371 z"
+                      Fill="{StaticResource MyOrangeBrush}"
+                      RenderTransformOrigin="0.5,0.5"
+                      Stretch="Uniform"
+                      UseLayoutRounding="False"
+                      Visibility="Visible" />
+                <Grid Margin="12">
+                    <Grid.Background>
+                        <SolidColorBrush Opacity="0.7" Color="{StaticResource MyOrangeBrushAlter}" />
+                    </Grid.Background>
+                    <TextBlock x:Name="GiftCodeTextBlock"
+                               Margin="6"
+                               HorizontalAlignment="Center"
+                               FontSize="72"
+                               FontWeight="Bold"
+                               Foreground="Black"
+                               Text="ajs645x" />
+                </Grid>
+                <Grid Margin="12">
+                    <Grid.Background>
+                        <SolidColorBrush Opacity="0.7" Color="{StaticResource MyOrangeBrushAlter}" />
+                    </Grid.Background>
+                    <TextBlock x:Name="TotalPointTextBlock"
+                               HorizontalAlignment="Center"
+                               FontSize="36"
+                               FontWeight="Bold"
+                               Foreground="Black"
+                               Text="Point: 30" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsMenuEnabled="True" IsVisible="True">
+            <shell:ApplicationBarIconButton x:Name="email"
+                                            Click="email_Click"
+                                            IconUri="/Assets/AppBar/email.png"
+                                            Text="Send Email" />
+            <shell:ApplicationBarIconButton x:Name="fb"
+                                            Click="fb_Click"
+                                            IconUri="/Assets/AppBar/fb.png"
+                                            Text="Facebook" />
+            <shell:ApplicationBarIconButton x:Name="twitter"
+                                            Click="twitter_Click"
+                                            IconUri="/Assets/AppBar/twitter.png"
+                                            Text="Twitter" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>

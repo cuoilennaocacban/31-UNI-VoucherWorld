@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!-- header area -->
+
+    <!-- end header -->
+
+    <!-- main content area -->
+    <div id="main" class="wrapper clearfix">
+        <header class="wrapper clearfix">
+
+            <div id="banner">
+                <div id="logo">
+                    VOURCHER WORLD
+                </div>
+            </div>
+
+
+        </header>
+        <!-- content area -->
+        <section id="content" class="wide-content">
+            @RenderBody()
+        </section>
+        <!-- #end content area -->
+        <div class="push"></div>
+    </div>
+    <!-- #end div #main .wrapper -->
+
+    <!-- footer area -->
+    <footer>
+    </footer>
+    <!-- #end footer area -->
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

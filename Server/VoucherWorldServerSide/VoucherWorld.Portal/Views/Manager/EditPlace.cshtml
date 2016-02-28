@@ -1,0 +1,75 @@
+﻿@model VoucherWorld.Data.Entities.Place
+
+@{
+    ViewBag.Title = "EditPlace";
+}
+
+@{
+    var editLink = "/Manager/EditPlace/" + Model.Id;
+}
+
+<div class="EditBox">
+    <h2>Edit place</h2>
+    <form action="@editLink" method="post">
+        <fieldset>
+            <input data-val="true" data-val-number="The field Id must be a number." data-val-required="The Id field is required." id="Id" name="Id" type="hidden" value="@Model.Id" />
+
+            <p>
+                <label for="Address">Address</label>
+
+            </p>
+            <p>
+                <input class="text-box single-line" id="Address" name="Address" type="text" value="@Model.Address"/>
+            </p>
+            <p>
+                <label for="ScalingQuestion_Content">Question</label>
+
+            </p>
+            <p>
+                <input class="text-box single-line" id="ScalingQuestion_Content" name="ScalingQuestion.Content" type="text" value="@Model.ScalingQuestion.Content" />
+            </p>
+            <p>
+                <label for="Longitude">Longitude</label>
+
+            </p>
+            <p>
+                <input class="text-box single-line" data-val="true" data-val-number="The field Longitude must be a number." data-val-required="The Longitude field is required." id="Longitude" name="Longitude" type="text" value="@Model.Longitude" />
+            </p>
+            <p>
+                <label for="Latitude">Latitude</label>
+            </p>
+            <p>
+                <input class="text-box single-line" data-val="true" data-val-number="The field Latitude must be a number." data-val-required="The Latitude field is required." id="Latitude" name="Latitude" type="text" value="@Model.Latitude" />
+            </p>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+    </form>
+</div>
+
+@*<h2>EditPlace</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(p => p.Id)
+    <div>
+        @Html.LabelFor(p => p.Address)
+        @Html.EditorFor(p => p.Address)
+    </div>
+    <div>
+        @Html.LabelFor(p => p.ScalingQuestion.Content)
+        @Html.EditorFor(p => p.ScalingQuestion.Content)
+    </div>
+    <div>
+        @Html.LabelFor(p => p.Longitude)
+        @Html.EditorFor(p => p.Longitude)
+    </div>
+    <div>
+        @Html.LabelFor(p => p.Latitude)
+        @Html.EditorFor(p => p.Latitude)
+    </div>
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}*@

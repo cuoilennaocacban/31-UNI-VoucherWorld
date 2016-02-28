@@ -1,0 +1,52 @@
+﻿.PlaceListItem {
+    margin: 20px 50px;
+}
+
+.PlaceListItemPropertyTitle {
+    width: 48px;
+    text-align: center;
+}
+
+.PlaceListItemPropertyValue {
+    width: 400px;
+}
+
+.PlaceListItemContentTable table {
+    padding: 10px 20px;
+}
+
+.PlaceListItemContentTable .EditButton {
+    padding: 3px 10px;
+    background-color: #FFBC35;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.PlaceListItemContentTable .Answer {
+    padding: 3px 15px;
+    background-color: #FFBC35;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.PlaceListItemContentTable .DeleteButton {
+    padding: 3px 10px;
+    background-color: #f95252;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.PlaceListItemContentTable table tr td {
+    vertical-align: baseline;
+}
+
+.PlaceListItemContentTable table tr td span {
+    font-family: fontawesome;
+}

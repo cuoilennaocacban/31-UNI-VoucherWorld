@@ -1,0 +1,24 @@
+﻿@model VoucherWorld.Portal.Models.Client.ClientModel
+@{
+    ViewBag.Title = "Redeem";
+}
+
+@if (TempData["msg"] != "")
+{
+    @Html.Raw(TempData["msg"])
+    TempData["msg"] = "";
+}
+<div class="ClientBox">
+    <h2>Check giftcode</h2>
+    <form action="/Clients/CheckGiftCode" method="post">
+        <fieldset>
+            <p>
+            <input class="text-box single-line" id="GiftCode" name="GiftCode" type="text" value="" />
+            </p>
+            <p>
+                <input type="submit" value="Check" />
+            </p>
+        </fieldset>
+    </form>
+</div>
+

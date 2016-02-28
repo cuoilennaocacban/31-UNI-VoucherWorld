@@ -1,0 +1,85 @@
+﻿@model VoucherWorld.Portal.Models.Manager.MvcCreateRouteModel
+
+@using VoucherWorld.Portal.Utilities
+@{
+    ViewBag.Title = "CreateRoute";
+}
+
+<div class="EditBox">
+    <h2>Create route</h2>
+    <form action="/Manager/CreateRoute/" method="post">
+        <fieldset>
+
+            <p>@Html.LabelFor(r => r.Name)</p>
+            <p>@Html.EditorFor(r => r.Name)</p>
+                
+            <p>@Html.CheckBoxFor(x => x.IsHidden)
+            @Html.LabelFor(x => x.IsHidden)
+            <label for="Category" id="CategoryLabel">Category</label>
+            @Html.EnumDropDownListFor(x => x.Category)</p>
+            <p>@Html.LabelFor(x => x.OpenEndedQuestion.Content)</p>
+            <p>@Html.EditorFor(x => x.OpenEndedQuestion.Content)</p>
+
+            <p>@Html.LabelFor(x => x.Gift.GiftName)</p>
+            <p>@Html.EditorFor(x => x.Gift.GiftName)</p>
+
+            <p>@Html.LabelFor(x => x.Gift.StockAmount)</p>
+            <p>@Html.EditorFor(x => x.Gift.StockAmount)</p>
+            <div class="PlaceChoose">
+            <p><label for="PlaceIds_0_">Place #1</label></p>
+            <p>@Html.DropDownListFor(x => x.PlaceIds[0], new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[0]))</p>
+            <p><label for="PlaceIds_1_">Place #2</label></p>
+            <p>@Html.DropDownListFor(x => x.PlaceIds[1], new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[1]))</p>
+            <p><label for="PlaceIds_2_">Place #3</label></p>
+            <p>@Html.DropDownListFor(x => x.PlaceIds[2], new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[2]))</p>
+            </div>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+
+        </fieldset>
+    </form>
+</div>
+
+@*<h2>CreateRoute</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(r => r.Name)
+        @Html.EditorFor(r => r.Name)
+    </div>
+    <div>
+        @Html.EnumDropDownListFor(x => x.Category)
+    </div>
+    @Html.LabelFor(x => x.IsHidden)
+    @Html.CheckBoxFor(x => x.IsHidden)
+    <div>@Html.EditorFor(x => x.OpenEndedQuestion.Content)</div>
+    <div>
+        <ul>
+            <li>
+                @Html.LabelFor(x => x.Gift.GiftName)
+                @Html.EditorFor(x => x.Gift.GiftName)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.Gift.StockAmount)
+                @Html.EditorFor(x => x.Gift.StockAmount)
+            </li>
+        </ul>
+    </div>
+    <div>
+        <ul>
+            <li>
+                @Html.DropDownListFor(x => x.PlaceIds[0],new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[0]))
+            </li>
+            <li>
+                @Html.DropDownListFor(x => x.PlaceIds[1],new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[1]))
+            <li>
+                @Html.DropDownListFor(x => x.PlaceIds[2],new SelectList(Model.Places, "Id", "Address", Model.PlaceIds[2]))
+            </li>
+        </ul>
+    </div>
+
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}*@

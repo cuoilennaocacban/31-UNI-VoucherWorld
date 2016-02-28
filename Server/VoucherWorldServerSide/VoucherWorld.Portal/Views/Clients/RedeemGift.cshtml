@@ -1,0 +1,25 @@
+﻿@using System.Web.UI.WebControls
+@model VoucherWorld.Data.Entities.Enrollment
+
+@{
+    ViewBag.Title = "RedeemGift";
+}
+
+<div class="ClientBox">
+    <h2>Redeem gift</h2>
+    <form action="/Clients/RedeemGift" method="post">
+        <fieldset>
+            @Html.HiddenFor(p => p.RouteId)
+            @Html.HiddenFor(p => p.NormalUserId)
+            <h3>Gift</h3>
+            <p class="DeleteConfirmValue">@Model.Route.Gift.GiftName</p>
+            
+            <h3>User</h3>
+            <p class="DeleteConfirmValue">@Model.NormalUser.Name</p>
+            
+            <p>
+                <input type="submit" value="Redeem" />
+            </p>
+        </fieldset>
+    </form>
+</div>

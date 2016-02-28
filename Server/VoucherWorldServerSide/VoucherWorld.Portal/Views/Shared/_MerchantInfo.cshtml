@@ -1,0 +1,25 @@
+﻿@model VoucherWorld.Data.Entities.Merchant
+
+
+<div id="MerchantInfo">
+    <h2>Merchant Info</h2>
+    <div id="MerchantInfoContent">
+        <h3 class="MerchantInfoTitle">Name</h3>
+        <div class="MerchantInfoValue">@Model.Name</div>
+
+        <h3 class="MerchantInfoTitle">Address</h3>
+        <div class="MerchantInfoValue">@Model.Address</div>
+
+        <h3 class="MerchantInfoTitle">Phone number</h3>
+        <div class="MerchantInfoValue">@Model.PhoneNumber</div>
+
+        <h3 class="MerchantInfoTitle">Website</h3>
+        <div class="MerchantInfoValue">@Model.Website</div>
+
+        <h3 class="MerchantInfoTitle">Route count</h3>
+        <div class="MerchantInfoValue">@Model.Routes.Count</div>
+
+        <h3 class="MerchantInfoTitle">Place count</h3>
+        <div class="MerchantInfoValue">@Model.Places.Count</div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model VoucherWorld.Data.Entities.Place
+
+
+<div class="PlaceListItem">
+    <h3>@Model.Name</h3>
+    <div class="PlaceListItemContentTable">
+        <table>
+            <tr>
+                <td class="PlaceListItemPropertyTitle"><i class="fa fa-map-marker"></i></td>
+                <td class="PlaceListItemPropertyValue">@Model.Address</td>
+                @{
+                    string editLink = "/Manager/EditPlace/" + Model.Id;
+                    string deleteLink = "/Manager/DeletePlace/" + Model.Id;
+                    string answerLink = "/Manager/PlaceAnswer/" + Model.Id;
+                }
+                <td rowspan="2">
+                    <table>
+                        <tr>
+                            <td><a class="EditButton" href="@editLink">Edit</a></td>
+                            <td><a class="DeleteButton" href="@deleteLink">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a class="Answer" href="@answerLink">View answer</a>
+                            </td>
+                        </tr>
+                    </table>
+                    @*<a class="EditButton" href="@editLink">Edit</a>
+                    <a class="DeleteButton" href="@deleteLink">Delete</a>*@
+                </td>
+            </tr>
+            <tr>
+                <td class="PlaceListItemPropertyTitle"><i class="fa fa-question"></i></td>
+                <td class="PlaceListItemPropertyValue">@Model.ScalingQuestion.Content</td>
+            </tr>
+        </table>
+    </div>
+</div>

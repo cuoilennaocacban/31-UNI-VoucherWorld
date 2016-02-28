@@ -1,0 +1,144 @@
+﻿<phone:PhoneApplicationPage x:Class="VoucherWorld.PageGroups.RouteGroup.RouteDetails"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            Orientation="Portrait"
+                            SupportedOrientations="Portrait"
+                            shell:SystemTray.IsVisible="True"
+                            mc:Ignorable="d">
+
+    <!--  Page Transition  -->
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn" />
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn" />
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut" />
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut" />
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="SmallHeaderTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="36" />
+            <Setter Property="Foreground" Value="{StaticResource MyBlueBrush}" />
+        </Style>
+        <Style x:Key="SubTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Foreground" Value="{StaticResource MyOrangeBrush}" />
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="applicationBar"
+                              BackgroundColor="{StaticResource PhoneBackgroundColor}"
+                              IsMenuEnabled="False"
+                              IsVisible="True"
+                              Mode="Default"
+                              Opacity="1"
+                              x:FieldModifier="public">
+            <!--
+                <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="SettingMenuBarItem"
+                Click="SettingMenuBarItem_OnClick"
+                Text="setting..." />
+                <shell:ApplicationBarMenuItem x:Name="AboutMenuBarItem"
+                Click="AboutMenuBarItem_OnClick"
+                Text="about.." />
+                <shell:ApplicationBarMenuItem x:Name="RateAndReviewMenuBarItem"
+                Click="RateAndReviewMenuBarItem_OnClick"
+                Text="rate, review and feedback..." />
+                </shell:ApplicationBar.MenuItems>
+            -->
+            <shell:ApplicationBarIconButton x:Name="PlaylistButton"
+                                            Click="PlaylistButton_OnClick"
+                                            IconUri="/Assets/Icon/play.png"
+                                            IsEnabled="True"
+                                            Text="start"
+                                            x:FieldModifier="public" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <!--  LayoutRoot is the root grid where all page content is placed  -->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ContentPresenter Grid.RowSpan="2" ContentTemplate="{StaticResource AppBackgroundTemplate}" />
+
+        <!--  TitlePanel contains the name of the application and page title  -->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <!--  <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="VOUCHER WORLD" />  -->
+            <TextBlock Margin="9,-7,0,0"
+                       Style="{StaticResource PhoneTextTitle1Style}"
+                       Text="route details" />
+        </StackPanel>
+
+        <!--  ContentPanel - place additional content here  -->
+        <Grid x:Name="ContentPanel"
+              Grid.Row="1"
+              Margin="12,0,12,0">
+            <ScrollViewer>
+                <StackPanel>
+                    <maps:Map x:Name="MainMap"
+                              Width="434"
+                              Height="186"
+                              Margin="10"
+                              HorizontalAlignment="Left"
+                              LandmarksEnabled="True" />
+                    <StackPanel Margin="10">
+                        <TextBlock x:Name="RouteNameTextBlock"
+                                   FontSize="36"
+                                   Text="detail" />
+
+                        <TextBlock Foreground="{StaticResource MyOrangeBrush}"
+                                   Style="{StaticResource SubTextBlockStyle}"
+                                   Text="address" FontWeight="Bold" />
+                        <TextBlock x:Name="AddressTextBlock"
+                                   Margin="36,0,0,0"
+                                   Foreground="White"
+                                   Style="{StaticResource SubTextBlockStyle}"
+                                   Text="address"
+                                   TextWrapping="Wrap"/>
+
+                        <TextBlock Foreground="{StaticResource MyOrangeBrush}"
+                                   Style="{StaticResource SubTextBlockStyle}"
+                                   Text="creator" FontWeight="Bold" />
+                        <TextBlock x:Name="CreatorTextBlock"
+                                   Margin="36,0,0,0"
+                                   Foreground="White"
+                                   Style="{StaticResource SubTextBlockStyle}"
+                                   Text="creator" />
+                        <!--
+                            <TextBlock Foreground="{StaticResource MyBlueBrush}" TextWrapping="Wrap">
+                            <Run x:Name="AddressRun" Text="Address: 5 Quang Trung, Gò Vấp, Tp.HCM" />
+                            <LineBreak />
+                            <Run x:Name="CategoryRun" Text="Category: Food" />
+                            </TextBlock>
+                        -->
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

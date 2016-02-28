@@ -1,0 +1,1085 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Edmx Version="3.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <Runtime>
+    <ConceptualModels>
+      <Schema Namespace="VoucherWorld.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NormalUserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NormalUser" Relationship="Self.Answer_NormalUser" FromRole="Answer_NormalUser_Source" ToRole="Answer_NormalUser_Target" />
+        </EntityType>
+        <EntityType Name="NormalUser" BaseType="Self.User">
+          <Property Name="IsFacebookUser" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Answers" Relationship="Self.Answer_NormalUser" FromRole="Answer_NormalUser_Target" ToRole="Answer_NormalUser_Source" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.Enrollment_NormalUser" FromRole="Enrollment_NormalUser_Target" ToRole="Enrollment_NormalUser_Source" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="NormalUserId" />
+            <PropertyRef Name="RouteId" />
+          </Key>
+          <Property Name="NormalUserId" Type="Int32" Nullable="false" />
+          <Property Name="RouteId" Type="Int32" Nullable="false" />
+          <Property Name="GiftCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnrollDate" Type="DateTime" Nullable="false" />
+          <Property Name="EnrollStatus" Type="Self.EnrollStatus" Nullable="false" />
+          <Property Name="GiftCodeStatus" Type="Self.GiftCodeStatus" Nullable="false" />
+          <NavigationProperty Name="NormalUser" Relationship="Self.Enrollment_NormalUser" FromRole="Enrollment_NormalUser_Source" ToRole="Enrollment_NormalUser_Target" />
+          <NavigationProperty Name="Route" Relationship="Self.Enrollment_Route" FromRole="Enrollment_Route_Source" ToRole="Enrollment_Route_Target" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="Self.RouteCategory" Nullable="false" />
+          <Property Name="PlaceIcon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MerchantId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.Enrollment_Route" FromRole="Enrollment_Route_Target" ToRole="Enrollment_Route_Source" />
+          <NavigationProperty Name="Gift" Relationship="Self.Route_Gift" FromRole="Route_Gift_Source" ToRole="Route_Gift_Target" />
+          <NavigationProperty Name="Merchant" Relationship="Self.Merchant_Routes" FromRole="Merchant_Routes_Target" ToRole="Merchant_Routes_Source" />
+          <NavigationProperty Name="OpenEndedQuestion" Relationship="Self.Route_OpenEndedQuestion" FromRole="Route_OpenEndedQuestion_Source" ToRole="Route_OpenEndedQuestion_Target" />
+          <NavigationProperty Name="RoutePlaces" Relationship="Self.RoutePlace_Route" FromRole="RoutePlace_Route_Target" ToRole="RoutePlace_Route_Source" />
+        </EntityType>
+        <EntityType Name="Gift">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="GiftName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StockAmount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Route" Relationship="Self.Route_Gift" FromRole="Route_Gift_Target" ToRole="Route_Gift_Source" />
+        </EntityType>
+        <EntityType Name="Merchant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MerchantClients" Relationship="Self.Merchant_MerchantClients" FromRole="Merchant_MerchantClients_Source" ToRole="Merchant_MerchantClients_Target" />
+          <NavigationProperty Name="MerchantManager" Relationship="Self.Merchant_MerchantManager" FromRole="Merchant_MerchantManager_Source" ToRole="Merchant_MerchantManager_Target" />
+          <NavigationProperty Name="Places" Relationship="Self.Merchant_Places" FromRole="Merchant_Places_Source" ToRole="Merchant_Places_Target" />
+          <NavigationProperty Name="Routes" Relationship="Self.Merchant_Routes" FromRole="Merchant_Routes_Source" ToRole="Merchant_Routes_Target" />
+        </EntityType>
+        <EntityType Name="MerchantClient" BaseType="Self.User">
+          <Property Name="MerchantId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Merchant" Relationship="Self.Merchant_MerchantClients" FromRole="Merchant_MerchantClients_Target" ToRole="Merchant_MerchantClients_Source" />
+        </EntityType>
+        <EntityType Name="MerchantManager" BaseType="Self.User">
+          <NavigationProperty Name="Merchant" Relationship="Self.Merchant_MerchantManager" FromRole="Merchant_MerchantManager_Target" ToRole="Merchant_MerchantManager_Source" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Altitude" Type="Double" />
+          <Property Name="MerchantId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Merchant" Relationship="Self.Merchant_Places" FromRole="Merchant_Places_Target" ToRole="Merchant_Places_Source" />
+          <NavigationProperty Name="RoutePlaces" Relationship="Self.RoutePlace_Place" FromRole="RoutePlace_Place_Target" ToRole="RoutePlace_Place_Source" />
+          <NavigationProperty Name="ScalingQuestion" Relationship="Self.Place_ScalingQuestion" FromRole="Place_ScalingQuestion_Source" ToRole="Place_ScalingQuestion_Target" />
+        </EntityType>
+        <EntityType Name="RoutePlace">
+          <Key>
+            <PropertyRef Name="RouteId" />
+            <PropertyRef Name="PlaceId" />
+          </Key>
+          <Property Name="RouteId" Type="Int32" Nullable="false" />
+          <Property Name="PlaceId" Type="Int32" Nullable="false" />
+          <Property Name="AddedTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Place" Relationship="Self.RoutePlace_Place" FromRole="RoutePlace_Place_Source" ToRole="RoutePlace_Place_Target" />
+          <NavigationProperty Name="Route" Relationship="Self.RoutePlace_Route" FromRole="RoutePlace_Route_Source" ToRole="RoutePlace_Route_Target" />
+        </EntityType>
+        <EntityType Name="ScalingQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Place" Relationship="Self.Place_ScalingQuestion" FromRole="Place_ScalingQuestion_Target" ToRole="Place_ScalingQuestion_Source" />
+          <NavigationProperty Name="ScalingAnswers" Relationship="Self.ScalingAnswer_ScalingQuestion" FromRole="ScalingAnswer_ScalingQuestion_Target" ToRole="ScalingAnswer_ScalingQuestion_Source" />
+        </EntityType>
+        <EntityType Name="ScalingAnswer" BaseType="Self.Answer">
+          <Property Name="Content" Type="Int32" Nullable="false" />
+          <Property Name="ScalingQuestionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ScalingQuestion" Relationship="Self.ScalingAnswer_ScalingQuestion" FromRole="ScalingAnswer_ScalingQuestion_Source" ToRole="ScalingAnswer_ScalingQuestion_Target" />
+        </EntityType>
+        <EntityType Name="OpenEndedQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OpenEndedAnswers" Relationship="Self.OpenEndedAnswer_OpenEndedQuestion" FromRole="OpenEndedAnswer_OpenEndedQuestion_Target" ToRole="OpenEndedAnswer_OpenEndedQuestion_Source" />
+          <NavigationProperty Name="Route" Relationship="Self.Route_OpenEndedQuestion" FromRole="Route_OpenEndedQuestion_Target" ToRole="Route_OpenEndedQuestion_Source" />
+        </EntityType>
+        <EntityType Name="OpenEndedAnswer" BaseType="Self.Answer">
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OpenEndedQuestionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OpenEndedQuestion" Relationship="Self.OpenEndedAnswer_OpenEndedQuestion" FromRole="OpenEndedAnswer_OpenEndedQuestion_Source" ToRole="OpenEndedAnswer_OpenEndedQuestion_Target" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="Self.UserType" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EnumType Name="UserType" IsFlags="false" UnderlyingType="Int32">
+          <Member Name="Administrator" Value="0" />
+          <Member Name="MerchantManager" Value="1" />
+          <Member Name="MerchantClient" Value="2" />
+          <Member Name="NormalUser" Value="3" />
+        </EnumType>
+        <EnumType Name="EnrollStatus" IsFlags="false" UnderlyingType="Int32">
+          <Member Name="OnGoing" Value="0" />
+          <Member Name="Finish" Value="1" />
+          <Member Name="Pending" Value="2" />
+        </EnumType>
+        <EnumType Name="GiftCodeStatus" IsFlags="false" UnderlyingType="Int32">
+          <Member Name="Available" Value="0" />
+          <Member Name="Assigned" Value="1" />
+          <Member Name="Used" Value="2" />
+        </EnumType>
+        <EnumType Name="RouteCategory" IsFlags="false" UnderlyingType="Int32">
+          <Member Name="Food" Value="0" />
+          <Member Name="Game" Value="1" />
+          <Member Name="Clothes" Value="2" />
+          <Member Name="Sport" Value="3" />
+        </EnumType>
+        <Association Name="Enrollment_NormalUser">
+          <End Role="Enrollment_NormalUser_Source" Type="Self.Enrollment" Multiplicity="*" />
+          <End Role="Enrollment_NormalUser_Target" Type="Self.NormalUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Enrollment_NormalUser_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Enrollment_NormalUser_Source">
+              <PropertyRef Name="NormalUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Route_Gift">
+          <End Role="Route_Gift_Source" Type="Self.Route" Multiplicity="1" />
+          <End Role="Route_Gift_Target" Type="Self.Gift" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Route_Gift_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Route_Gift_Target">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Merchant_MerchantClients">
+          <End Role="Merchant_MerchantClients_Source" Type="Self.Merchant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Merchant_MerchantClients_Target" Type="Self.MerchantClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Merchant_MerchantClients_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Merchant_MerchantClients_Target">
+              <PropertyRef Name="MerchantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Merchant_MerchantManager">
+          <End Role="Merchant_MerchantManager_Source" Type="Self.Merchant" Multiplicity="0..1" />
+          <End Role="Merchant_MerchantManager_Target" Type="Self.MerchantManager" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Merchant_MerchantManager_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Merchant_MerchantManager_Source">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoutePlace_Place">
+          <End Role="RoutePlace_Place_Source" Type="Self.RoutePlace" Multiplicity="*" />
+          <End Role="RoutePlace_Place_Target" Type="Self.Place" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="RoutePlace_Place_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoutePlace_Place_Source">
+              <PropertyRef Name="PlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoutePlace_Route">
+          <End Role="RoutePlace_Route_Source" Type="Self.RoutePlace" Multiplicity="*" />
+          <End Role="RoutePlace_Route_Target" Type="Self.Route" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="RoutePlace_Route_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoutePlace_Route_Source">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ScalingAnswer_ScalingQuestion">
+          <End Role="ScalingAnswer_ScalingQuestion_Source" Type="Self.ScalingAnswer" Multiplicity="*" />
+          <End Role="ScalingAnswer_ScalingQuestion_Target" Type="Self.ScalingQuestion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="ScalingAnswer_ScalingQuestion_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScalingAnswer_ScalingQuestion_Source">
+              <PropertyRef Name="ScalingQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Place_ScalingQuestion">
+          <End Role="Place_ScalingQuestion_Source" Type="Self.Place" Multiplicity="1" />
+          <End Role="Place_ScalingQuestion_Target" Type="Self.ScalingQuestion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Place_ScalingQuestion_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Place_ScalingQuestion_Target">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Merchant_Places">
+          <End Role="Merchant_Places_Source" Type="Self.Merchant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Merchant_Places_Target" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Merchant_Places_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Merchant_Places_Target">
+              <PropertyRef Name="MerchantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Merchant_Routes">
+          <End Role="Merchant_Routes_Source" Type="Self.Merchant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Merchant_Routes_Target" Type="Self.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Merchant_Routes_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Merchant_Routes_Target">
+              <PropertyRef Name="MerchantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OpenEndedAnswer_OpenEndedQuestion">
+          <End Role="OpenEndedAnswer_OpenEndedQuestion_Source" Type="Self.OpenEndedAnswer" Multiplicity="*" />
+          <End Role="OpenEndedAnswer_OpenEndedQuestion_Target" Type="Self.OpenEndedQuestion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="OpenEndedAnswer_OpenEndedQuestion_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpenEndedAnswer_OpenEndedQuestion_Source">
+              <PropertyRef Name="OpenEndedQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Route_OpenEndedQuestion">
+          <End Role="Route_OpenEndedQuestion_Source" Type="Self.Route" Multiplicity="1" />
+          <End Role="Route_OpenEndedQuestion_Target" Type="Self.OpenEndedQuestion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Route_OpenEndedQuestion_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Route_OpenEndedQuestion_Target">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Enrollment_Route">
+          <End Role="Enrollment_Route_Source" Type="Self.Enrollment" Multiplicity="*" />
+          <End Role="Enrollment_Route_Target" Type="Self.Route" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Enrollment_Route_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Enrollment_Route_Source">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Answer_NormalUser">
+          <End Role="Answer_NormalUser_Source" Type="Self.Answer" Multiplicity="*" />
+          <End Role="Answer_NormalUser_Target" Type="Self.NormalUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Answer_NormalUser_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answer_NormalUser_Source">
+              <PropertyRef Name="NormalUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VoucherWorldContext">
+          <EntitySet Name="Answers" EntityType="Self.Answer" />
+          <EntitySet Name="Enrollments" EntityType="Self.Enrollment" />
+          <EntitySet Name="Routes" EntityType="Self.Route" />
+          <EntitySet Name="Gifts" EntityType="Self.Gift" />
+          <EntitySet Name="Merchants" EntityType="Self.Merchant" />
+          <EntitySet Name="Places" EntityType="Self.Place" />
+          <EntitySet Name="RoutePlaces" EntityType="Self.RoutePlace" />
+          <EntitySet Name="ScalingQuestions" EntityType="Self.ScalingQuestion" />
+          <EntitySet Name="OpenEndedQuestions" EntityType="Self.OpenEndedQuestion" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="Enrollment_NormalUser" Association="Self.Enrollment_NormalUser">
+            <End Role="Enrollment_NormalUser_Source" EntitySet="Enrollments" />
+            <End Role="Enrollment_NormalUser_Target" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Route_Gift" Association="Self.Route_Gift">
+            <End Role="Route_Gift_Source" EntitySet="Routes" />
+            <End Role="Route_Gift_Target" EntitySet="Gifts" />
+          </AssociationSet>
+          <AssociationSet Name="Merchant_MerchantClients" Association="Self.Merchant_MerchantClients">
+            <End Role="Merchant_MerchantClients_Source" EntitySet="Merchants" />
+            <End Role="Merchant_MerchantClients_Target" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="Merchant_MerchantManager" Association="Self.Merchant_MerchantManager">
+            <End Role="Merchant_MerchantManager_Source" EntitySet="Merchants" />
+            <End Role="Merchant_MerchantManager_Target" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="RoutePlace_Place" Association="Self.RoutePlace_Place">
+            <End Role="RoutePlace_Place_Source" EntitySet="RoutePlaces" />
+            <End Role="RoutePlace_Place_Target" EntitySet="Places" />
+          </AssociationSet>
+          <AssociationSet Name="RoutePlace_Route" Association="Self.RoutePlace_Route">
+            <End Role="RoutePlace_Route_Source" EntitySet="RoutePlaces" />
+            <End Role="RoutePlace_Route_Target" EntitySet="Routes" />
+          </AssociationSet>
+          <AssociationSet Name="ScalingAnswer_ScalingQuestion" Association="Self.ScalingAnswer_ScalingQuestion">
+            <End Role="ScalingAnswer_ScalingQuestion_Source" EntitySet="Answers" />
+            <End Role="ScalingAnswer_ScalingQuestion_Target" EntitySet="ScalingQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="Place_ScalingQuestion" Association="Self.Place_ScalingQuestion">
+            <End Role="Place_ScalingQuestion_Source" EntitySet="Places" />
+            <End Role="Place_ScalingQuestion_Target" EntitySet="ScalingQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="Merchant_Places" Association="Self.Merchant_Places">
+            <End Role="Merchant_Places_Source" EntitySet="Merchants" />
+            <End Role="Merchant_Places_Target" EntitySet="Places" />
+          </AssociationSet>
+          <AssociationSet Name="Merchant_Routes" Association="Self.Merchant_Routes">
+            <End Role="Merchant_Routes_Source" EntitySet="Merchants" />
+            <End Role="Merchant_Routes_Target" EntitySet="Routes" />
+          </AssociationSet>
+          <AssociationSet Name="OpenEndedAnswer_OpenEndedQuestion" Association="Self.OpenEndedAnswer_OpenEndedQuestion">
+            <End Role="OpenEndedAnswer_OpenEndedQuestion_Source" EntitySet="Answers" />
+            <End Role="OpenEndedAnswer_OpenEndedQuestion_Target" EntitySet="OpenEndedQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="Route_OpenEndedQuestion" Association="Self.Route_OpenEndedQuestion">
+            <End Role="Route_OpenEndedQuestion_Source" EntitySet="Routes" />
+            <End Role="Route_OpenEndedQuestion_Target" EntitySet="OpenEndedQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="Enrollment_Route" Association="Self.Enrollment_Route">
+            <End Role="Enrollment_Route_Source" EntitySet="Enrollments" />
+            <End Role="Enrollment_Route_Target" EntitySet="Routes" />
+          </AssociationSet>
+          <AssociationSet Name="Answer_NormalUser" Association="Self.Answer_NormalUser">
+            <End Role="Answer_NormalUser_Source" EntitySet="Answers" />
+            <End Role="Answer_NormalUser_Target" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </ConceptualModels>
+    <Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodeFirstDatabase" CdmEntityContainer="VoucherWorldContext">
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="IsTypeOf(VoucherWorld.Data.Answer)">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NormalUserId" ColumnName="NormalUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="VoucherWorld.Data.ScalingAnswer">
+              <MappingFragment StoreEntitySet="ScalingAnswers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ScalingQuestionId" ColumnName="ScalingQuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="VoucherWorld.Data.OpenEndedAnswer">
+              <MappingFragment StoreEntitySet="OpenEndedAnswers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="OpenEndedQuestionId" ColumnName="OpenEndedQuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.NormalUser">
+              <MappingFragment StoreEntitySet="NormalUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsFacebookUser" ColumnName="IsFacebookUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="VoucherWorld.Data.MerchantClient">
+              <MappingFragment StoreEntitySet="MerchantClients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MerchantId" ColumnName="MerchantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="VoucherWorld.Data.MerchantManager">
+              <MappingFragment StoreEntitySet="MerchantManagers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(VoucherWorld.Data.User)">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enrollments">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.Enrollment">
+              <MappingFragment StoreEntitySet="Enrollment">
+                <ScalarProperty Name="NormalUserId" ColumnName="NormalUserId" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="GiftCode" ColumnName="GiftCode" />
+                <ScalarProperty Name="EnrollDate" ColumnName="EnrollDate" />
+                <ScalarProperty Name="EnrollStatus" ColumnName="EnrollStatus" />
+                <ScalarProperty Name="GiftCodeStatus" ColumnName="GiftCodeStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Routes">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.Route">
+              <MappingFragment StoreEntitySet="Route">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="PlaceIcon" ColumnName="PlaceIcon" />
+                <ScalarProperty Name="MerchantId" ColumnName="MerchantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gifts">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.Gift">
+              <MappingFragment StoreEntitySet="Gift">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GiftName" ColumnName="GiftName" />
+                <ScalarProperty Name="StockAmount" ColumnName="StockAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Merchants">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.Merchant">
+              <MappingFragment StoreEntitySet="Merchant">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Places">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.Place">
+              <MappingFragment StoreEntitySet="Place">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Altitude" ColumnName="Altitude" />
+                <ScalarProperty Name="MerchantId" ColumnName="MerchantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoutePlaces">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.RoutePlace">
+              <MappingFragment StoreEntitySet="RoutePlace">
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="AddedTime" ColumnName="AddedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScalingQuestions">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.ScalingQuestion">
+              <MappingFragment StoreEntitySet="ScalingQuestion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpenEndedQuestions">
+            <EntityTypeMapping TypeName="VoucherWorld.Data.OpenEndedQuestion">
+              <MappingFragment StoreEntitySet="OpenEndedQuestion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </Mappings>
+    <StorageModels>
+      <Schema Namespace="CodeFirstDatabaseSchema" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NormalUserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="UserType" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="NormalUserId" />
+            <PropertyRef Name="RouteId" />
+          </Key>
+          <Property Name="NormalUserId" Type="int" Nullable="false" />
+          <Property Name="RouteId" Type="int" Nullable="false" />
+          <Property Name="GiftCode" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="EnrollDate" Type="datetime" Nullable="false" />
+          <Property Name="EnrollStatus" Type="int" Nullable="false" />
+          <Property Name="GiftCodeStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="PlaceIcon" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="MerchantId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gift">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="GiftName" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="StockAmount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Merchant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Altitude" Type="float" Nullable="true" />
+          <Property Name="MerchantId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoutePlace">
+          <Key>
+            <PropertyRef Name="RouteId" />
+            <PropertyRef Name="PlaceId" />
+          </Key>
+          <Property Name="RouteId" Type="int" Nullable="false" />
+          <Property Name="PlaceId" Type="int" Nullable="false" />
+          <Property Name="AddedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScalingQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
+        </EntityType>
+        <EntityType Name="OpenEndedQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
+        </EntityType>
+        <EntityType Name="MerchantManagers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MerchantClients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="MerchantId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NormalUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="IsFacebookUser" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OpenEndedAnswers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="OpenEndedQuestionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScalingAnswers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Content" Type="int" Nullable="false" />
+          <Property Name="ScalingQuestionId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="Enrollment_NormalUser">
+          <End Role="NormalUsers" Type="Self.NormalUsers" Multiplicity="1" />
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NormalUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="NormalUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Route_Gift">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="Gift" Type="Self.Gift" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gift">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Merchant_MerchantManager">
+          <End Role="MerchantManagers" Type="Self.MerchantManagers" Multiplicity="1" />
+          <End Role="Merchant" Type="Self.Merchant" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MerchantManagers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Merchant">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoutePlace_Place">
+          <End Role="Place" Type="Self.Place" Multiplicity="1" />
+          <End Role="RoutePlace" Type="Self.RoutePlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoutePlace">
+              <PropertyRef Name="PlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoutePlace_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="RoutePlace" Type="Self.RoutePlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoutePlace">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Place_ScalingQuestion">
+          <End Role="Place" Type="Self.Place" Multiplicity="1" />
+          <End Role="ScalingQuestion" Type="Self.ScalingQuestion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScalingQuestion">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Merchant_Places">
+          <End Role="Merchant" Type="Self.Merchant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Merchant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Place">
+              <PropertyRef Name="MerchantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Merchant_Routes">
+          <End Role="Merchant" Type="Self.Merchant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Route" Type="Self.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Merchant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="MerchantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Route_OpenEndedQuestion">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="OpenEndedQuestion" Type="Self.OpenEndedQuestion" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpenEndedQuestion">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Enrollment_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Answer_NormalUser">
+          <End Role="NormalUsers" Type="Self.NormalUsers" Multiplicity="1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NormalUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="NormalUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MerchantManager_TypeConstraint_From_User_To_MerchantManagers">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="MerchantManagers" Type="Self.MerchantManagers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MerchantManagers">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MerchantClient_TypeConstraint_From_User_To_MerchantClients">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="MerchantClients" Type="Self.MerchantClients" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MerchantClients">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Merchant_MerchantClients1">
+          <End Role="Merchant" Type="Self.Merchant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MerchantClients" Type="Self.MerchantClients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Merchant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MerchantClients">
+              <PropertyRef Name="MerchantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NormalUser_TypeConstraint_From_User_To_NormalUsers">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="NormalUsers" Type="Self.NormalUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NormalUsers">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OpenEndedAnswer_TypeConstraint_From_Answer_To_OpenEndedAnswers">
+          <End Role="Answer" Type="Self.Answer" Multiplicity="1" />
+          <End Role="OpenEndedAnswers" Type="Self.OpenEndedAnswers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Answer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpenEndedAnswers">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OpenEndedAnswer_OpenEndedQuestion1">
+          <End Role="OpenEndedQuestion" Type="Self.OpenEndedQuestion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OpenEndedAnswers" Type="Self.OpenEndedAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OpenEndedQuestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OpenEndedAnswers">
+              <PropertyRef Name="OpenEndedQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ScalingAnswer_TypeConstraint_From_Answer_To_ScalingAnswers">
+          <End Role="Answer" Type="Self.Answer" Multiplicity="1" />
+          <End Role="ScalingAnswers" Type="Self.ScalingAnswers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Answer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScalingAnswers">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ScalingAnswer_ScalingQuestion1">
+          <End Role="ScalingQuestion" Type="Self.ScalingQuestion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ScalingAnswers" Type="Self.ScalingAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScalingQuestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScalingAnswers">
+              <PropertyRef Name="ScalingQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CodeFirstDatabase">
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" Table="Answers" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" Table="Users" />
+          <EntitySet Name="Enrollment" EntityType="Self.Enrollment" Schema="dbo" Table="Enrollments" />
+          <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" Table="Routes" />
+          <EntitySet Name="Gift" EntityType="Self.Gift" Schema="dbo" Table="Gifts" />
+          <EntitySet Name="Merchant" EntityType="Self.Merchant" Schema="dbo" Table="Merchants" />
+          <EntitySet Name="Place" EntityType="Self.Place" Schema="dbo" Table="Places" />
+          <EntitySet Name="RoutePlace" EntityType="Self.RoutePlace" Schema="dbo" Table="RoutePlaces" />
+          <EntitySet Name="ScalingQuestion" EntityType="Self.ScalingQuestion" Schema="dbo" Table="ScalingQuestions" />
+          <EntitySet Name="OpenEndedQuestion" EntityType="Self.OpenEndedQuestion" Schema="dbo" Table="OpenEndedQuestions" />
+          <EntitySet Name="MerchantManagers" EntityType="Self.MerchantManagers" Schema="dbo" Table="MerchantManagers" />
+          <EntitySet Name="MerchantClients" EntityType="Self.MerchantClients" Schema="dbo" Table="MerchantClients" />
+          <EntitySet Name="NormalUsers" EntityType="Self.NormalUsers" Schema="dbo" Table="NormalUsers" />
+          <EntitySet Name="OpenEndedAnswers" EntityType="Self.OpenEndedAnswers" Schema="dbo" Table="OpenEndedAnswers" />
+          <EntitySet Name="ScalingAnswers" EntityType="Self.ScalingAnswers" Schema="dbo" Table="ScalingAnswers" />
+          <AssociationSet Name="Enrollment_NormalUser" Association="Self.Enrollment_NormalUser">
+            <End Role="NormalUsers" EntitySet="NormalUsers" />
+            <End Role="Enrollment" EntitySet="Enrollment" />
+          </AssociationSet>
+          <AssociationSet Name="Route_Gift" Association="Self.Route_Gift">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Gift" EntitySet="Gift" />
+          </AssociationSet>
+          <AssociationSet Name="Merchant_MerchantManager" Association="Self.Merchant_MerchantManager">
+            <End Role="MerchantManagers" EntitySet="MerchantManagers" />
+            <End Role="Merchant" EntitySet="Merchant" />
+          </AssociationSet>
+          <AssociationSet Name="RoutePlace_Place" Association="Self.RoutePlace_Place">
+            <End Role="Place" EntitySet="Place" />
+            <End Role="RoutePlace" EntitySet="RoutePlace" />
+          </AssociationSet>
+          <AssociationSet Name="RoutePlace_Route" Association="Self.RoutePlace_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="RoutePlace" EntitySet="RoutePlace" />
+          </AssociationSet>
+          <AssociationSet Name="Place_ScalingQuestion" Association="Self.Place_ScalingQuestion">
+            <End Role="Place" EntitySet="Place" />
+            <End Role="ScalingQuestion" EntitySet="ScalingQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="Merchant_Places" Association="Self.Merchant_Places">
+            <End Role="Merchant" EntitySet="Merchant" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="Merchant_Routes" Association="Self.Merchant_Routes">
+            <End Role="Merchant" EntitySet="Merchant" />
+            <End Role="Route" EntitySet="Route" />
+          </AssociationSet>
+          <AssociationSet Name="Route_OpenEndedQuestion" Association="Self.Route_OpenEndedQuestion">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="OpenEndedQuestion" EntitySet="OpenEndedQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="Enrollment_Route" Association="Self.Enrollment_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Enrollment" EntitySet="Enrollment" />
+          </AssociationSet>
+          <AssociationSet Name="Answer_NormalUser" Association="Self.Answer_NormalUser">
+            <End Role="NormalUsers" EntitySet="NormalUsers" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="MerchantManager_TypeConstraint_From_User_To_MerchantManagers" Association="Self.MerchantManager_TypeConstraint_From_User_To_MerchantManagers">
+            <End Role="User" EntitySet="User" />
+            <End Role="MerchantManagers" EntitySet="MerchantManagers" />
+          </AssociationSet>
+          <AssociationSet Name="MerchantClient_TypeConstraint_From_User_To_MerchantClients" Association="Self.MerchantClient_TypeConstraint_From_User_To_MerchantClients">
+            <End Role="User" EntitySet="User" />
+            <End Role="MerchantClients" EntitySet="MerchantClients" />
+          </AssociationSet>
+          <AssociationSet Name="Merchant_MerchantClients1" Association="Self.Merchant_MerchantClients1">
+            <End Role="Merchant" EntitySet="Merchant" />
+            <End Role="MerchantClients" EntitySet="MerchantClients" />
+          </AssociationSet>
+          <AssociationSet Name="NormalUser_TypeConstraint_From_User_To_NormalUsers" Association="Self.NormalUser_TypeConstraint_From_User_To_NormalUsers">
+            <End Role="User" EntitySet="User" />
+            <End Role="NormalUsers" EntitySet="NormalUsers" />
+          </AssociationSet>
+          <AssociationSet Name="OpenEndedAnswer_TypeConstraint_From_Answer_To_OpenEndedAnswers" Association="Self.OpenEndedAnswer_TypeConstraint_From_Answer_To_OpenEndedAnswers">
+            <End Role="Answer" EntitySet="Answer" />
+            <End Role="OpenEndedAnswers" EntitySet="OpenEndedAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="OpenEndedAnswer_OpenEndedQuestion1" Association="Self.OpenEndedAnswer_OpenEndedQuestion1">
+            <End Role="OpenEndedQuestion" EntitySet="OpenEndedQuestion" />
+            <End Role="OpenEndedAnswers" EntitySet="OpenEndedAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="ScalingAnswer_TypeConstraint_From_Answer_To_ScalingAnswers" Association="Self.ScalingAnswer_TypeConstraint_From_Answer_To_ScalingAnswers">
+            <End Role="Answer" EntitySet="Answer" />
+            <End Role="ScalingAnswers" EntitySet="ScalingAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="ScalingAnswer_ScalingQuestion1" Association="Self.ScalingAnswer_ScalingQuestion1">
+            <End Role="ScalingQuestion" EntitySet="ScalingQuestion" />
+            <End Role="ScalingAnswers" EntitySet="ScalingAnswers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </StorageModels>
+  </Runtime>
+  <Designer>
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="ProcessDependentTemplatesOnSave" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <Diagrams >
+      <Diagram DiagramId="99ebce85890746c9af4055358562524e" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="VoucherWorld.Data.Answer" Width="1.5" PointX="8.875" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.NormalUser" Width="1.5" PointX="7.125" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.Enrollment" Width="1.5" PointX="8.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.Route" Width="1.5" PointX="8.375" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.Gift" Width="1.5" PointX="5.375" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.Merchant" Width="1.5" PointX="11.625" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.MerchantClient" Width="1.5" PointX="9.5" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.MerchantManager" Width="1.5" PointX="13.125" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.Place" Width="1.5" PointX="12.5" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.RoutePlace" Width="1.5" PointX="10.375" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.ScalingQuestion" Width="1.5" PointX="15.125" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.ScalingAnswer" Width="1.5" PointX="15" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.OpenEndedQuestion" Width="1.5" PointX="7.875" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.OpenEndedAnswer" Width="1.5" PointX="8.125" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="VoucherWorld.Data.User" Width="1.5" PointX="6.875" PointY="25.375" IsExpanded="true" />
+        <InheritanceConnector EntityType="VoucherWorld.Data.NormalUser" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="VoucherWorld.Data.MerchantClient" ManuallyRouted="true" >
+          <ConnectorPoint PointX="7.625" PointY="25.375" />
+          <ConnectorPoint PointX="7.625" PointY="24.542105523937391" />
+          <ConnectorPoint PointX="10.25" PointY="24.542105523937391" />
+          <ConnectorPoint PointX="10.25" PointY="23.778382161458332" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="VoucherWorld.Data.MerchantManager" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="VoucherWorld.Data.ScalingAnswer" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="VoucherWorld.Data.OpenEndedAnswer" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Enrollment_NormalUser" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Route_Gift" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Merchant_MerchantClients" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="VoucherWorld.Data.Merchant_MerchantManager" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.RoutePlace_Place" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.RoutePlace_Route" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.ScalingAnswer_ScalingQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Place_ScalingQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Merchant_Places" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Merchant_Routes" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.OpenEndedAnswer_OpenEndedQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Route_OpenEndedQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Enrollment_Route" ManuallyRouted="false" />
+        <AssociationConnector Association="VoucherWorld.Data.Answer_NormalUser" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</Edmx>
